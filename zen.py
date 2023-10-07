@@ -46,6 +46,8 @@ soup = BeautifulSoup(response.text, 'html.parser')
 
 # Find product titles and image URLs
 product_titles = [item.text for item in soup.find_all('h2', class_='product-title')]
+print(product_titles)
 image_urls = [item['src'] for item in soup.find_all('img', class_='product-image')]
+print(image_urls)
 
 # Store the extracted data or continue with feature extraction and comparison.
