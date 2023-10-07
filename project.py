@@ -37,15 +37,42 @@ print("Welcome to our generative AI project.")
 
 userGeneration = ''
 image_url = ''
+hasRun = True
+button1=None
+button2=None
 # Setup the screen
 sc = Screen()
 sc.setup(width=0.75, height=0.75, startx=0, starty=0)
 sc.bgcolor('white')
 
+def printToScreen():
+    global hasRun,button1,button2
+    image = get_image_from_url(image_url)
+    sc.addshape("custom", turtle.Shape("image", image))
+    t = turtle.Turtle()
+    t.shape("custom")
+    if hasRun == True:
+        canvas = sc.getcanvas()
+        button1 = Button(canvas.master, text="Regenerate", command=regen)
+        button1.pack()
+        button2 = Button(canvas.master, text="Search", command=searchIOT)
+        button2.pack()
+        hasRun=False
+    turtle.mainloop()
+def regen():
+    global userGeneration
+    imageSearch(userGeneration)
+    printToScreen()
+    
 
-
+def searchIOT():
+    button1.pack_forget()
+    button2.pack_forget()
+    turtle.clearscreen()
+    
+    
 def mainFunction():
-    global userGeneration, image_url
+    global userGeneration, image_url, sc, turtle
     hideturtle()
     write('Welcome to our Generative AI Project\n By: Blake Coppens And Zen Lambertus',
           align='center', font=('Times New Roman', 15, 'bold'))
@@ -55,20 +82,7 @@ def mainFunction():
     hideturtle()
     write(f'Searching for {userGeneration}... \n Please Wait', align='center',font=('Times New Roman', 15,'normal'))
     imageSearch(userGeneration)
-    image = get_image_from_url(image_url)
-    sc.clear
-    sc.addshape("custom", turtle.Shape("image", image))
-    t = turtle.Turtle()
-    t.shape("custom")
-    turtle.mainloop()
-    
-    
-## This is where we put your code, and we want to save the url to a 
+    printToScreen()
 
-# image = url
 
-# Call the function to display the message
 mainFunction()
-
-# Start the turtle main loop
-mainloop()
