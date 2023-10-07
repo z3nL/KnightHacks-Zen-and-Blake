@@ -38,4 +38,14 @@ while check != '4':
 
 response = requests.get(image_url)
 image_data = response.content 
-image = cv2.imdecode(np.frombuffer(image_data, np.uint8), -1)
+generated_image = cv2.imdecode(np.frombuffer(image_data, np.uint8), -1)
+
+site_url= 'https://us.shein.com/'
+response2 = requests.get(site_url)
+soup = BeautifulSoup(response.text, 'html.parser')
+
+# Find product titles and image URLs
+product_titles = [item.text for item in soup.find_all('h2', class_='product-title')]
+image_urls = [item['src'] for item in soup.find_all('img', class_='product-image')]
+
+# Store the extracted data or continue with feature extraction and comparison.
