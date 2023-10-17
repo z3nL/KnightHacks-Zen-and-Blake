@@ -85,6 +85,9 @@ def mainFunction(): #main fuction, what is run when the program starts
           align='center', font=('Times New Roman', 15, 'bold')) #credits
     
     userGeneration = sc.textinput("Image Generator","Please Enter the item you would like to search for!")
+    print(userGeneration)
+    with open('KnightHacks-Zen-and-Blake\Searches.txt', 'a') as file:
+        file.write('\n' + userGeneration)
     sc.clear()
     hideturtle()
     write(f'Searching for {userGeneration}... \n Please Wait', align='center',font=('Times New Roman', 15,'normal'))
