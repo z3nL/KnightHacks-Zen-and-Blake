@@ -12,6 +12,9 @@ from dotenv import load_dotenv
 import requests
 from io import BytesIO
 from PIL import Image, ImageTk
+import semantic_kernel as sk
+from semantic_kernel.connectors.ai.open_ai import OpenAIChatCompletion, AzureChatCompletion
+
 #listing all the imports
 
 # Global variables referenced later
@@ -20,7 +23,9 @@ image_url = ''
 hasRun = True
 button1=None
 button2=None
-
+kernel = sk.Kernel()
+api_key, org_id = sk.openai_settings_from_dot_env()
+kernel.add_chat_service("chat-gpt", OpenAIChatCompletion("gpt-3.5-turbo", api_key, org_id))
 
 
 def get_image_from_url(url):  #    Fetches image from the provided URL and returns it as an ImageTk.PhotoImage object
